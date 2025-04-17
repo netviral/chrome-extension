@@ -49,12 +49,19 @@ function injectSidebar() {
             Brought to you by <strong>Placecom</strong>
         </p>
         
-        <a href="#" class="duperset-button">Verify My Profile</a>
+        <a href="#" id="verify-button" class="duperset-button">Verify My Profile</a>
+        <a href="#" id="major-minor-button" class="duperset-button">Request Major Minor Change</a>
+        <br />
+        <hr style="border: 0; height: 1px; background: #3B32B3; margin: 10px 0;" />
+        <br />
+
+        <p id="chrome-extension-branding">
+            Coming Soon
+        </p>
         <a href="#" class="duperset-button">Deadline Calendar</a>
-        <a href="#" class="duperset-button">Request Major Minor Change</a>
-        <a href="#" class="duperset-button">Chatbot</a>
+        
+        <a href="#" class="duperset-button">FAQs</a>
         <a href="#" class="duperset-button">External Opportunities</a>
-        <a href="#" class="duperset-button">Resume Checker</a>
         
         
     `;
@@ -138,6 +145,14 @@ function injectSidebar() {
 
     menuButton.addEventListener("click", () => {
         sidebar.style.right = "0"; // Show sidebar
+    });
+
+    document.getElementById("verify-button").addEventListener("click", () => {
+        chrome.runtime.sendMessage({ action: "verifyPopup" });
+    });
+    
+    document.getElementById("major-minor-button").addEventListener("click", () => {
+        chrome.runtime.sendMessage({ action: "majorMinorPopup" });
     });
 
     document.body.appendChild(menuButton);
