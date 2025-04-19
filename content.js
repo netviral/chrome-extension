@@ -142,10 +142,15 @@ function injectSidebar() {
     menuButton.style.cursor = "pointer";
     menuButton.style.zIndex = "10000";
     menuButton.style.boxShadow = "0px 4px 10px rgba(0, 0, 0, 0.2)";
-
+    
     menuButton.addEventListener("click", () => {
-        sidebar.style.right = "0"; // Show sidebar
+        if (sidebar.style.right === "0px") {
+            sidebar.style.right = "-320px"; // Hide sidebar
+        } else {
+            sidebar.style.right = "0"; // Show sidebar
+        }
     });
+
 
     document.getElementById("verify-button").addEventListener("click", () => {
         chrome.runtime.sendMessage({ action: "verifyPopup" });

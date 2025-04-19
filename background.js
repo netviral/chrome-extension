@@ -38,9 +38,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 // // Listen for focus change and close popup if focus is lost
-// chrome.windows.onFocusChanged.addListener((windowId) => {
-//     if (popupWindow2Id && windowId !== popupWindow2Id && windowId !== chrome.windows.WINDOW_ID_NONE) {
-//         chrome.windows.remove(popupWindow2Id);
-//         popupWindow2Id = null;
-//     }
-// });
+chrome.windows.onFocusChanged.addListener((windowId) => {
+    if (popupWindow2Id && windowId !== popupWindow2Id && windowId !== chrome.windows.WINDOW_ID_NONE) {
+        chrome.windows.remove(popupWindow2Id);
+        popupWindow2Id = null;
+    }
+});
