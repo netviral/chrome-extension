@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duperset Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #3B32B3;
+            width: 300px;
+            padding: 20px;
+            text-align: left;
+            border-radius: 12px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #3B32B3;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #3B32B3;
+            margin: 15px 0;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .note {
+            font-style: italic;
+            font-size: 12px;
+            opacity: 0.7;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .launch-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #3B32B3;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 20px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .launch-button:hover {
+            background: #2a2391;
+        }
+    </style>
+</head>
+<body>
+    <h2>Duperset</h2>
+    <hr />
+    <p><strong>Duperset</strong> is your all-in-one placement assistant.</p>
+
+    <p>Quickly verify your student profile, request major/minor changes, and stay on top of internship deadlines — all from a floating sidebar extending Superset.</p>
+
+    <p>Access FAQs, career opportunities, and our upcoming integrated chatbot for instant help.</p>
+
+    <hr />
+    <div class="note">Brought to you by Placecom</div>
+
+    <script>
+        document.getElementById("open-sidebar").addEventListener("click", () => {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                chrome.scripting.executeScript({
+                    target: { tabId: tabs[0].id },
+                    function: () => {
+                        if (typeof injectSidebar === "function") {
+                            injectSidebar();
+                        } else {
+                            alert("Duperset sidebar not loaded on this page.");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,16 +1,16 @@
 {
     "manifest_version": 3,
-    "name": "Placecom Extension",
+    "name": "Duperset",
     "version": "1.0",
-    "description": "An extension to enhance Gmail functionality.",
+    "description": "An extension to enhance Superset functionality. This extension is for Ashoka University's internal use by students to add certain functionality and SOPs for students' placement processes.",
     "permissions": ["storage", "scripting","activeTab","identity"],
-    "host_permissions": ["https://app.joinsuperset.com/students/profile/*"],
+    "host_permissions": ["https://app.joinsuperset.com/students/*"],
     "background": {
       "service_worker": "background.js"
     },
     "content_scripts": [
   {
-    "matches": ["https://app.joinsuperset.com/students/profile/*"],
+    "matches": ["https://app.joinsuperset.com/students/*"],
     "js": ["content.js"],
     "run_at": "document_idle",
     "all_frames": true
@@ -18,8 +18,8 @@
 ]
 ,
     "action": {
-      "default_popup": "calendar.html",
-      "default_icon": "icon.png"
+      "default_popup": "popup.html",
+      "default_icon": "images/placecom_logo.png"
     },
     "web_accessible_resources": [
       {
