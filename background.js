@@ -30,7 +30,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             url: chrome.runtime.getURL("major-minor.html"),
             type: "popup",
             width: 800,
-            height: 700
+            height: 720
         }, (popup) => {
             popupWindow2Id = popup.id;
         });
