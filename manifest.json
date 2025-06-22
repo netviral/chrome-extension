@@ -1,9 +1,9 @@
 {
     "manifest_version": 3,
     "name": "Duperset",
-    "version": "1.0",
+    "version": "2.0",
     "description": "An extension to enhance Superset functionality for Ashoka University's internal use by students for placement processes.",
-    "permissions": ["storage", "scripting","activeTab"],
+    "permissions": [],
     "host_permissions": ["https://app.joinsuperset.com/students/*"],
     "background": {
       "service_worker": "background.js"
