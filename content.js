@@ -24,12 +24,13 @@ function sendOTP(email) {
   });
 }
 
-function verifyOTP(email, otp) {
+function verifyOTP(email, otp, message) {
   const params = new URLSearchParams({
     action: "verifyOTP",
     key: apiKey,
     email: email,
-    otp: otp
+    otp: otp,
+    message: message || ""
   });
 
   return fetch(baseUrlScript, {
@@ -171,6 +172,8 @@ modal1Content.innerHTML = `
   <div class="step" id="otpStep">
     <label for="verify-otp">Enter OTP</label>
     <input id="verify-otp" type="text" maxlength="4" placeholder="4-digit code" />
+    <label for="verify-message-box" style="margin-top:10px;display:block;">Message to PoC (optional)</label>
+    <textarea id="verify-message-box" rows="2" style="width:100%;margin-bottom:8px;resize:vertical;" placeholder="Add a message for your PoC (optional)"></textarea>
     <button id="verifyBtn">Verify & Submit</button>
     <a class="resend-link" id="resendLink">Didn’t get OTP? Resend</a>
   </div>
@@ -234,6 +237,7 @@ document.getElementById("otpBtn").onclick = () => {
 
 document.getElementById("verifyBtn").onclick = () => {
   const otp = document.getElementById("verify-otp").value;
+  const message = document.getElementById("verify-message-box").value;
   const btn = document.getElementById("verifyBtn");
 
   if (!otp || otp.length !== 4) {
@@ -243,26 +247,26 @@ document.getElementById("verifyBtn").onclick = () => {
 
   disableBtn(btn, "Verifying...");
 
-  verifyOTP(currentVerifyEmail, otp).then(res => {
-  if (res.success) {
-    setVerifyMessage(res.message || "Verified successfully!", "success-submitted");
+  verifyOTP(currentVerifyEmail, otp, message).then(res => {
+    if (res.success) {
+      setVerifyMessage(res.message || "Verified successfully!", "success-submitted");
 
-    // Keep button disabled and close modal after delay
-    setTimeout(() => {
-      document.getElementById("verify-email").value = "";
-      document.getElementById("verify-otp").value = "";
-      showVerifyStep("emailStep");
-      document.getElementById("modal1").style.display = "none";
-    }, 3000);
-  } else {
-    setVerifyMessage(res.message || "Verification failed", "error");
-    enableBtn(btn, "Verify & Submit");  // re-enable only on failure
-  }
-}).catch(() => {
-  setVerifyMessage("Failed to connect", "error");
-  enableBtn(btn, "Verify & Submit");
-});
-
+      // Keep button disabled and close modal after delay
+      setTimeout(() => {
+        document.getElementById("verify-email").value = "";
+        document.getElementById("verify-otp").value = "";
+        document.getElementById("verify-message-box").value = "";
+        showVerifyStep("emailStep");
+        document.getElementById("modal1").style.display = "none";
+      }, 3000);
+    } else {
+      setVerifyMessage(res.message || "Verification failed", "error");
+      enableBtn(btn, "Verify & Submit");  // re-enable only on failure
+    }
+  }).catch(() => {
+    setVerifyMessage("Failed to connect", "error");
+    enableBtn(btn, "Verify & Submit");
+  });
 };
 
 document.getElementById("resendLink").onclick = () => {
